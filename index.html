@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>AUTOGLASS 34 — автостёкла и детейлинг в Волгограде</title>
+<meta name="description" content="AUTOGLASS 34 — замена и ремонт автостёкол, тонировка, полировка фар и кузова в Волгограде. Ул. Лермонтова, 27. Цены на сайте, запись онлайн.">
+<meta name="theme-color" content="#06080c">
+<meta name="color-scheme" content="dark light">
+<!-- Тема ставится до отрисовки, чтобы не было вспышки: ?theme=day|night → выбор посетителя → системная тема -->
+<script>
+(function () {
+  var t = null;
+  try { t = localStorage.getItem('ag34-theme'); } catch (e) {}
+  var q = /[?&]theme=(day|night)\b/.exec(location.search);
+  if (q) t = q[1];
+  if (t !== 'day' && t !== 'night') {
+    t = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'day' : 'night';
+  }
+  document.documentElement.setAttribute('data-theme', t);
+})();
+</script>
+
+<meta property="og:type" content="business.business">
+<meta property="og:title" content="AUTOGLASS 34 — автостёкла и детейлинг в Волгограде">
+<meta property="og:description" content="Замена и ремонт автостёкол, тонировка, полировка фар и кузова. Ул. Лермонтова, 27, Волгоград.">
+
+<link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@500..900&family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "AutoRepair",
+  "name": "AUTOGLASS 34",
+  "description": "Замена и ремонт автостёкол, тонировка, расклейка тонировки, полировка фар и кузова.",
+  "telephone": ["+7 917 646-12-76", "+7 988 026-04-93"],
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "ул. Лермонтова, 27",
+    "addressLocality": "Волгоград",
+    "postalCode": "400127",
+    "addressCountry": "RU"
+  },
+  "areaServed": "Волгоград"
+}
+</script>
+</head>
+<body>
+
+<!-- Иконки -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-logo" viewBox="0 0 32 32"><path d="M4 23.5 7.2 9.6C7.6 7.9 9 6.8 10.7 6.8h10.6c1.7 0 3.1 1.1 3.5 2.8L28 23.5c-7.6 2.6-16.4 2.6-24 0Z" fill="currentColor" opacity=".22"/><path d="M4 23.5 7.2 9.6C7.6 7.9 9 6.8 10.7 6.8h10.6c1.7 0 3.1 1.1 3.5 2.8L28 23.5c-7.6 2.6-16.4 2.6-24 0Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M10.5 21.5 18.8 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="21.3" cy="17.6" r="1.7" fill="currentColor"/></symbol>
+  <symbol id="i-windshield" viewBox="0 0 24 24"><path d="M3 17.2 5.3 7.4C5.6 6 6.7 5.2 8 5.2h8c1.3 0 2.4.8 2.7 2.2L21 17.2c-5.8 2-12.2 2-18 0Z"/><path d="M8.2 15.6 13.8 8"/></symbol>
+  <symbol id="i-chip" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1.8"/><path d="M12 10.2V3.5M13.6 11.1l5.2-3.4M13.5 13l6 2.6M11.3 13.7l-2.5 6.3M10.3 11.4 4 9.2"/><path d="M15.4 5.4l1.4-.9M6.2 15.6l-1.2 1"/></symbol>
+  <symbol id="i-stack" viewBox="0 0 24 24"><path d="M3.5 18.5 5 11.6c.3-1 1-1.6 2-1.6h10c1 0 1.7.6 2 1.6l1.5 6.9c-5.6 1.7-11.4 1.7-17 0Z"/><path d="M6 8.2 6.7 6c.3-.9 1-1.4 1.9-1.4h6.8c.9 0 1.6.5 1.9 1.4l.7 2.2"/></symbol>
+  <symbol id="i-tint" viewBox="0 0 24 24"><path d="M3 17.2 5.3 7.4C5.6 6 6.7 5.2 8 5.2h8c1.3 0 2.4.8 2.7 2.2L21 17.2c-5.8 2-12.2 2-18 0Z"/><path d="M12 5.2v13.4M14.5 5.2v13.3M17 5.4v12.8M19.3 8.6v9" /></symbol>
+  <symbol id="i-film" viewBox="0 0 24 24"><path d="M12 3.2 19.5 6v5.6c0 4.4-3.1 7.9-7.5 9.2-4.4-1.3-7.5-4.8-7.5-9.2V6L12 3.2Z"/><path d="M14.8 15.9c-.2-2.3 1.3-3.8 3.6-3.6"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-6.5-5.7-6.5-11a6.5 6.5 0 1 1 13 0c0 5.3-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.3"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5.1 3.8h3.2l1.6 4.1-2 1.3a11 11 0 0 0 6.9 6.9l1.3-2 4.1 1.6v3.2c0 .9-.7 1.6-1.6 1.6A16.1 16.1 0 0 1 3.5 5.4c0-.9.7-1.6 1.6-1.6Z"/></symbol>
+  <symbol id="i-tg" viewBox="0 0 24 24"><path d="M20.7 4.3 3.4 11c-.8.3-.8 1.5 0 1.8l4.2 1.4 1.6 5c.2.7 1.1.9 1.6.4l2.4-2.3 4.5 3.3c.6.5 1.5.1 1.7-.7l2.9-14c.2-.9-.7-1.6-1.6-1.3Z"/><path d="m7.6 14.2 9-6.3-6.6 7.4"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-left" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
+  <symbol id="i-right" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.6A8.2 8.2 0 0 1 9.4 4a8.2 8.2 0 1 0 10.6 10.6Z"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5.5v13l10.5-6.5L8 5.5Z" fill="currentColor"/></symbol>
+  <symbol id="i-mute" viewBox="0 0 24 24"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4v-5Z"/><path d="m16 9.5 5 5M21 9.5l-5 5"/></symbol>
+  <symbol id="i-vol" viewBox="0 0 24 24"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4v-5Z"/><path d="M15.5 9a4.2 4.2 0 0 1 0 6M18 6.5a8 8 0 0 1 0 11"/></symbol>
+  <symbol id="i-wipe" viewBox="0 0 24 24"><path d="M4 20 16.5 5.5"/><path d="M14.2 3.6l4.3 3.8"/><path d="M6 13.5c1.3.2 2.6 1 3.2 2.3M9.4 9.6c1.3.2 2.6 1 3.2 2.3" opacity=".6"/></symbol>
+  <symbol id="i-lamp" viewBox="0 0 24 24"><path d="M4 8.6c0-.9.6-1.6 1.5-1.8 3.2-.7 6.6-.6 9.6.5 2.2.8 3.9 2 4.9 3.5.4.6.4 1.3 0 1.9-1 1.5-2.7 2.7-4.9 3.5-3 1.1-6.4 1.2-9.6.5-.9-.2-1.5-.9-1.5-1.8V8.6Z"/><circle cx="12" cy="12" r="2.3"/><path d="M8.5 9.5 6.8 8.2M8.5 14.5l-1.7 1.3"/></symbol>
+  <symbol id="i-carshine" viewBox="0 0 24 24"><path d="M3.5 16.5v-3l1.9-4.3c.3-.8 1-1.2 1.8-1.2h6.6c.8 0 1.5.4 1.8 1.2l1.9 4.3v3M3.5 16.5h15M3.5 16.5V19M18.5 16.5V19"/><circle cx="7.2" cy="14" r=".7"/><circle cx="14.8" cy="14" r=".7"/><path d="m19 3 .7 1.8 1.8.7-1.8.7L19 8l-.7-1.8-1.8-.7 1.8-.7z"/></symbol>
+  <symbol id="i-peel" viewBox="0 0 24 24"><path d="M5 4.5h9.5L19 9v10.5H5z"/><path d="M14.5 4.5V9H19"/><path d="M8 13h8M8 16h5"/></symbol>
+  <symbol id="i-quote" viewBox="0 0 24 24"><path d="M10 7H6.5A2.5 2.5 0 0 0 4 9.5V13h4.5v4.5H4M20 7h-3.5A2.5 2.5 0 0 0 14 9.5V13h4.5v4.5H14" /></symbol>
+</svg>
+
+<a class="skip" href="#main">К содержимому</a>
+
+<!-- ============ Шапка ============ -->
+<header class="header" id="header">
+  <div class="header__inner container">
+    <a class="logo" href="#top" aria-label="AUTOGLASS 34 — на главную">
+      <svg class="logo__mark" aria-hidden="true"><use href="#i-logo"/></svg>
+      <span class="logo__word">AUTOGLASS<b>34</b></span>
+    </a>
+
+    <a class="header__addr" href="#contacts">
+      <svg class="ico" aria-hidden="true"><use href="#i-pin"/></svg>
+      <span>ул. Лермонтова, 27</span>
+    </a>
+
+    <nav class="nav" aria-label="Разделы">
+      <a class="nav__link" href="#services">Услуги</a>
+      <a class="nav__link" href="#prices">Цены</a>
+      <a class="nav__link" href="#works">Работы</a>
+      <a class="nav__link" href="#contacts">Контакты</a>
+    </nav>
+
+    <div class="header__actions">
+      <a class="header__phone" href="tel:+79176461276">8 (917) 646-12-76</a>
+      <a class="icon-btn" href="#" data-tg target="_blank" rel="noopener" aria-label="Написать в Telegram" hidden>
+        <svg aria-hidden="true"><use href="#i-tg"/></svg>
+      </a>
+      <button class="theme" id="themeToggle" type="button" aria-label="Переключить тему">
+        <span class="theme__opt theme__opt--day"><svg aria-hidden="true"><use href="#i-sun"/></svg><span>День</span></span>
+        <span class="theme__opt theme__opt--night"><svg aria-hidden="true"><use href="#i-moon"/></svg><span>Ночь</span></span>
+      </button>
+      <a class="btn btn--primary btn--sm header__cta js-book" href="#booking">Записаться</a>
+      <button class="burger" id="burger" type="button" aria-label="Меню" aria-expanded="false" aria-controls="mobileNav">
+        <span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Меню телефона — рядом с шапкой, а не внутри: у шапки backdrop-filter, он сделал бы её контейнером для fixed -->
+<div class="mnav" id="mobileNav">
+  <nav class="mnav__links" aria-label="Разделы">
+    <a href="#services">Услуги</a>
+    <a href="#prices">Цены</a>
+    <a href="#works">Работы</a>
+    <a href="#why">Почему мы</a>
+    <a href="#booking">Заявка</a>
+    <a href="#contacts">Контакты</a>
+  </nav>
+  <div class="mnav__foot">
+    <a href="tel:+79176461276">8 (917) 646-12-76</a>
+    <span>Волгоград / ул. Лермонтова, 27</span>
+  </div>
+</div>
+
+<main id="main">
+
+<!-- ============ Первый экран: лобовое под дождём ============ -->
+<section class="hero" id="top">
+  <canvas class="hero__glass" id="glass" aria-hidden="true"></canvas>
+
+  <div class="hero__tech" aria-hidden="true">
+    <span class="hero__tag hero__tag--tl">34 RUS / Волгоград</span>
+    <span class="hero__tag hero__tag--side">Замена / Ремонт / Тонировка / Полировка</span>
+    <span class="hero__tag hero__tag--br">48.7080° N / 44.5133° E</span>
+  </div>
+
+  <div class="hero__content container">
+    <div class="hero__text">
+      <p class="eyebrow">Студия автостёкол / AUTOGLASS 34</p>
+      <h1 class="hero__title">Автостёкла и&nbsp;детейлинг <span>в&nbsp;Волгограде</span></h1>
+      <p class="hero__lead">Замена и&nbsp;ремонт стёкол, тонировка, полировка фар и&nbsp;кузова.</p>
+      <div class="hero__btns">
+        <a class="btn btn--primary js-book" href="#booking">Записаться <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        <a class="btn btn--glass" href="tel:+79176461276"><svg aria-hidden="true"><use href="#i-phone"/></svg> Позвонить</a>
+      </div>
+    </div>
+    <p class="hero__hint" id="glassHint" aria-hidden="true">
+      <svg aria-hidden="true"><use href="#i-wipe"/></svg>
+      <span class="hint-fine">Проведите по&nbsp;стеклу</span>
+      <span class="hint-touch">Коснитесь стекла</span>
+    </p>
+  </div>
+</section>
+
+<!-- ============ Услуги ============ -->
+<section class="section services" id="services" aria-labelledby="services-title">
+  <div class="container">
+    <div class="shead">
+      <h2 class="shead__title" id="services-title">Услуги</h2>
+      <p class="shead__text">Работаем со&nbsp;стёклами, фарами и&nbsp;кузовом: заменим и&nbsp;отремонтируем стекло, затонируем, отполируем. Можем приехать к&nbsp;вам.</p>
+    </div>
+
+    <div class="cards" id="serviceCards">
+      <article class="card" data-service="Тонировка стёкол">
+        <div class="card__frame">
+          <div class="card__media"><svg class="card__ph" aria-hidden="true"><use href="#i-tint"/></svg></div>
+          <div class="card__body">
+            <span class="card__num">01</span>
+            <h3 class="card__title">Тонировка стёкол</h3>
+            <p class="card__text">Тонируем автомобильные стёкла плёнкой. Подскажем степень затемнения под ваши задачи.</p>
+            <div class="card__foot">
+              <span class="card__price">от 4&nbsp;500&nbsp;₽</span>
+              <button class="card__btn js-book" type="button" data-service="Тонировка стёкол">Записаться <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="card" data-service="Замена автостёкол">
+        <div class="card__frame">
+          <div class="card__media"><svg class="card__ph" aria-hidden="true"><use href="#i-windshield"/></svg></div>
+          <div class="card__body">
+            <span class="card__num">02</span>
+            <h3 class="card__title">Замена автостёкол</h3>
+            <p class="card__text">Заменим лобовое, боковое или заднее стекло. Более 5&nbsp;000 моделей стёкол для иномарок и&nbsp;отечественных авто.</p>
+            <div class="card__foot">
+              <span class="card__price">от 3&nbsp;000&nbsp;₽</span>
+              <button class="card__btn js-book" type="button" data-service="Замена автостёкол">Записаться <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="card" data-service="Ремонт сколов и трещин">
+        <div class="card__frame">
+          <div class="card__media"><svg class="card__ph" aria-hidden="true"><use href="#i-chip"/></svg></div>
+          <div class="card__body">
+            <span class="card__num">03</span>
+            <h3 class="card__title">Ремонт сколов и&nbsp;трещин</h3>
+            <p class="card__text">Ремонт повреждений на лобовом стекле. Цена скола зависит от&nbsp;повреждения, трещина&nbsp;— от&nbsp;3&nbsp;000&nbsp;₽.</p>
+            <div class="card__foot">
+              <span class="card__price">от 1&nbsp;500&nbsp;₽</span>
+              <button class="card__btn js-book" type="button" data-service="Ремонт сколов и трещин">Записаться <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="card" data-service="Полировка фар">
+        <div class="card__frame">
+          <div class="card__media"><svg class="card__ph" aria-hidden="true"><use href="#i-lamp"/></svg></div>
+          <div class="card__body">
+            <span class="card__num">04</span>
+            <h3 class="card__title">Полировка фар</h3>
+            <p class="card__text">Вернём прозрачность потускневшим фарам.</p>
+            <div class="card__foot">
+              <span class="card__price">от 3&nbsp;000&nbsp;₽</span>
+              <button class="card__btn js-book" type="button" data-service="Полировка фар">Записаться <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="card" data-service="Полировка кузова">
+        <div class="card__frame">
+          <div class="card__media"><svg class="card__ph" aria-hidden="true"><use href="#i-carshine"/></svg></div>
+          <div class="card__body">
+            <span class="card__num">05</span>
+            <h3 class="card__title">Полировка кузова</h3>
+            <p class="card__text">Полируем кузов: убираем мелкие царапины и&nbsp;возвращаем краске блеск.</p>
+            <div class="card__foot">
+              <span class="card__price">от 5&nbsp;000&nbsp;₽</span>
+              <button class="card__btn js-book" type="button" data-service="Полировка кузова">Записаться <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="card" data-service="Расклейка тонировки">
+        <div class="card__frame">
+          <div class="card__media"><svg class="card__ph" aria-hidden="true"><use href="#i-peel"/></svg></div>
+          <div class="card__body">
+            <span class="card__num">06</span>
+            <h3 class="card__title">Расклейка тонировки</h3>
+            <p class="card__text">Снимем старую тонировку со&nbsp;стёкол.</p>
+            <div class="card__foot">
+              <span class="card__price">от 2&nbsp;000&nbsp;₽</span>
+              <button class="card__btn js-book" type="button" data-service="Расклейка тонировки">Записаться <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Цены ============ -->
+<section class="section prices" id="prices" aria-labelledby="prices-title">
+  <div class="container prices__grid">
+    <div class="shead shead--stack">
+      <h2 class="shead__title" id="prices-title">Цены</h2>
+      <p class="shead__text">Цены указаны «от»: итог зависит от&nbsp;повреждения, модели автомобиля и&nbsp;опций стекла. Точную сумму назовём по&nbsp;марке и&nbsp;году машины.</p>
+      <button class="btn btn--primary js-book" type="button">Узнать точную цену <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+    </div>
+
+    <div>
+      <ul class="price-list">
+        <li class="price-row"><span class="price-row__name">Замена стёкол</span><span class="price-row__val">от&nbsp;3&nbsp;000&nbsp;₽</span></li>
+        <li class="price-row"><span class="price-row__name">Ремонт трещины</span><span class="price-row__val">от&nbsp;3&nbsp;000&nbsp;₽</span></li>
+        <li class="price-row"><span class="price-row__name">Ремонт скола <small>в&nbsp;зависимости от&nbsp;скола</small></span><span class="price-row__val">от&nbsp;1&nbsp;500&nbsp;₽</span></li>
+        <li class="price-row"><span class="price-row__name">Тонировка</span><span class="price-row__val">от&nbsp;4&nbsp;500&nbsp;₽</span></li>
+        <li class="price-row"><span class="price-row__name">Расклейка тонировки</span><span class="price-row__val">от&nbsp;2&nbsp;000&nbsp;₽</span></li>
+        <li class="price-row"><span class="price-row__name">Полировка фар</span><span class="price-row__val">от&nbsp;3&nbsp;000&nbsp;₽</span></li>
+        <li class="price-row"><span class="price-row__name">Полировка кузова</span><span class="price-row__val">от&nbsp;5&nbsp;000&nbsp;₽</span></li>
+      </ul>
+      <p class="price-note">Если нужно новое лобовое стекло с&nbsp;установкой, цена зависит от&nbsp;модели: от&nbsp;4&nbsp;100&nbsp;₽ на&nbsp;бюджетных моделях (например, ВАЗ&nbsp;2104) до&nbsp;10&nbsp;500&nbsp;₽ на&nbsp;Toyota Land Cruiser.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Работы: карусель фото и видео (список — js/media.js) ============ -->
+<section class="section works" id="works" aria-labelledby="works-title">
+  <div class="container">
+    <div class="shead">
+      <h2 class="shead__title" id="works-title">Работы</h2>
+      <div class="works__side">
+        <p class="shead__text">Фото и&nbsp;видео из&nbsp;студии. Листайте, ролики играют сами, звук&nbsp;— по&nbsp;кнопке.</p>
+        <div class="works__ctrl">
+          <button class="round-btn" id="worksPrev" type="button" aria-label="Предыдущий слайд"><svg aria-hidden="true"><use href="#i-left"/></svg></button>
+          <span class="works__count" id="worksCount" aria-live="polite">1 / 1</span>
+          <button class="round-btn" id="worksNext" type="button" aria-label="Следующий слайд"><svg aria-hidden="true"><use href="#i-right"/></svg></button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="works__track" id="worksTrack" tabindex="0" role="region" aria-roledescription="карусель" aria-label="Фото и видео работ"></div>
+</section>
+
+<!-- ============ Почему мы ============ -->
+<section class="section why" id="why" aria-labelledby="why-title">
+  <div class="container">
+    <div class="shead shead--light">
+      <h2 class="shead__title" id="why-title">Почему мы</h2>
+      <p class="shead__text">Качество, скорость, доверие. Ваш автомобиль в&nbsp;надёжных руках.</p>
+    </div>
+    <div class="why__grid">
+      <div class="stat">
+        <span class="stat__num"><span data-count="5">5</span>+</span>
+        <span class="stat__cap">лет в&nbsp;сфере автостёкол</span>
+      </div>
+      <div class="stat">
+        <span class="stat__num"><span data-count="5000">5 000</span>+</span>
+        <span class="stat__cap">моделей автостёкол</span>
+      </div>
+      <div class="stat">
+        <span class="stat__num stat__num--word">Гарантия</span>
+        <span class="stat__cap">на&nbsp;все работы</span>
+      </div>
+      <figure class="quote">
+        <svg class="quote__ico" aria-hidden="true"><use href="#i-quote"/></svg>
+        <blockquote>Меняли стекло на&nbsp;Киа Рио 2015. Созвонились и&nbsp;договорились, утром оставила, вечером забрала&nbsp;— вопросов нет, всё отлично.</blockquote>
+        <figcaption>Елена / отзыв клиента</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Заявка ============ -->
+<section class="section booking" id="booking" aria-labelledby="booking-title">
+  <div class="container booking__grid">
+    <div class="booking__intro">
+      <h2 class="shead__title" id="booking-title">Заявка</h2>
+      <p class="shead__text">Оставьте номер и&nbsp;марку машины&nbsp;— перезвоним, подскажем цену и&nbsp;время.</p>
+      <ul class="booking__alt">
+        <li><a href="tel:+79176461276"><svg aria-hidden="true"><use href="#i-phone"/></svg> 8 (917) 646-12-76</a></li>
+        <li data-tg-item hidden><a href="#" data-tg target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-tg"/></svg> Написать в&nbsp;Telegram</a></li>
+      </ul>
+    </div>
+
+    <form class="form" id="bookingForm" novalidate>
+      <div class="form__frame">
+        <div class="field">
+          <label for="f-name">Имя <i>*</i></label>
+          <input id="f-name" name="name" type="text" autocomplete="name" maxlength="80" placeholder="Как к вам обращаться">
+          <span class="field__error" aria-live="polite"></span>
+        </div>
+        <div class="field">
+          <label for="f-phone">Телефон <i>*</i></label>
+          <input id="f-phone" name="phone" type="tel" autocomplete="tel" inputmode="numeric" maxlength="18" placeholder="+7 (___) ___-__-__">
+          <span class="field__error" aria-live="polite"></span>
+        </div>
+        <div class="field field--wide">
+          <label for="f-car">Автомобиль <i>*</i></label>
+          <input id="f-car" name="car" type="text" maxlength="80" placeholder="Марка, модель, год — например, Kia Rio 2015">
+          <span class="field__error" aria-live="polite"></span>
+        </div>
+        <div class="field">
+          <label for="f-service">Услуга</label>
+          <div class="select">
+            <select id="f-service" name="service">
+              <option value="">Выберите услугу</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label for="f-date">Удобная дата</label>
+          <input id="f-date" name="date" type="date">
+        </div>
+        <div class="field field--wide">
+          <label for="f-comment">Комментарий</label>
+          <textarea id="f-comment" name="comment" rows="3" maxlength="1000" placeholder="Что случилось со стеклом, нужен ли выезд"></textarea>
+        </div>
+        <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="trap">
+        <div class="form__foot">
+          <button class="btn btn--primary btn--wide" type="submit">Отправить заявку <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+          <p class="form__note">Нажимая кнопку, вы соглашаетесь на&nbsp;обработку персональных данных для ответа на&nbsp;заявку.</p>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- ============ Контакты ============ -->
+<section class="section contacts" id="contacts" aria-labelledby="contacts-title">
+  <div class="container contacts__grid">
+    <div class="contacts__info">
+      <h2 class="shead__title" id="contacts-title">Контакты</h2>
+      <dl class="contacts__list">
+        <div><dt>Адрес</dt><dd>Волгоград, ул. Лермонтова, 27</dd></div>
+        <div><dt>Телефон</dt><dd><a href="tel:+79176461276">8 (917) 646-12-76</a><br><a href="tel:+79880260493">8 (988) 026-04-93</a></dd></div>
+        <div data-tg-item hidden><dt>Telegram</dt><dd><a href="#" data-tg data-tg-text target="_blank" rel="noopener">Написать</a></dd></div>
+        <div><dt>Выезд</dt><dd>Приедем к&nbsp;заказчику&nbsp;— договоримся по&nbsp;телефону</dd></div>
+      </dl>
+      <a class="btn btn--glass" href="https://yandex.ru/maps/?text=%D0%92%D0%BE%D0%BB%D0%B3%D0%BE%D0%B3%D1%80%D0%B0%D0%B4%2C%20%D1%83%D0%BB%D0%B8%D1%86%D0%B0%20%D0%9B%D0%B5%D1%80%D0%BC%D0%BE%D0%BD%D1%82%D0%BE%D0%B2%D0%B0%2C%2027" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-pin"/></svg> Построить маршрут</a>
+    </div>
+    <div class="contacts__map">
+      <iframe
+        src="https://yandex.ru/map-widget/v1/?text=%D0%92%D0%BE%D0%BB%D0%B3%D0%BE%D0%B3%D1%80%D0%B0%D0%B4%2C%20%D1%83%D0%BB%D0%B8%D1%86%D0%B0%20%D0%9B%D0%B5%D1%80%D0%BC%D0%BE%D0%BD%D1%82%D0%BE%D0%B2%D0%B0%2C%2027&amp;z=16"
+        width="100%" height="100%" frameborder="0" loading="lazy" title="Карта — AUTOGLASS 34, ул. Лермонтова, 27"></iframe>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ Подвал ============ -->
+<footer class="footer">
+  <div class="container">
+    <p class="footer__word" aria-hidden="true">AUTOGLASS<b>34</b></p>
+    <div class="footer__line">
+      <span>Волгоград / ул. Лермонтова, 27</span>
+      <span class="footer__copy">© <span id="year">2026</span> AUTOGLASS 34</span>
+      <a href="tel:+79176461276">8 (917) 646-12-76</a>
+    </div>
+  </div>
+</footer>
+
+<!-- Нижняя панель на телефоне -->
+<div class="mbar" id="mobileBar">
+  <a class="mbar__item" href="tel:+79176461276"><svg aria-hidden="true"><use href="#i-phone"/></svg><span>Позвонить</span></a>
+  <a class="mbar__item" href="#" data-tg target="_blank" rel="noopener" hidden><svg aria-hidden="true"><use href="#i-tg"/></svg><span>Telegram</span></a>
+  <a class="mbar__item mbar__item--main js-book" href="#booking"><span>Записаться</span></a>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="js/config.js"></script>
+<script src="js/media.js"></script>
+<script src="js/glass.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
