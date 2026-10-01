@@ -71,6 +71,10 @@
   <symbol id="i-mute" viewBox="0 0 24 24"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4v-5Z"/><path d="m16 9.5 5 5M21 9.5l-5 5"/></symbol>
   <symbol id="i-vol" viewBox="0 0 24 24"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4v-5Z"/><path d="M15.5 9a4.2 4.2 0 0 1 0 6M18 6.5a8 8 0 0 1 0 11"/></symbol>
   <symbol id="i-wipe" viewBox="0 0 24 24"><path d="M4 20 16.5 5.5"/><path d="M14.2 3.6l4.3 3.8"/><path d="M6 13.5c1.3.2 2.6 1 3.2 2.3M9.4 9.6c1.3.2 2.6 1 3.2 2.3" opacity=".6"/></symbol>
+  <symbol id="i-speaker" viewBox="0 0 24 24"><rect x="5.5" y="3" width="13" height="18" rx="2.2"/><circle cx="12" cy="9.3" r="3.1"/><circle cx="12" cy="9.3" r="1"/><circle cx="12" cy="16.3" r="1.6"/></symbol>
+  <symbol id="i-soundproof" viewBox="0 0 24 24"><path d="M3 20V6.5a1.5 1.5 0 0 1 1.5-1.5h2A1.5 1.5 0 0 1 8 6.5V20M8 11.5h3M8 16h4M12 20V9a1.5 1.5 0 0 1 1.5-1.5h2A1.5 1.5 0 0 1 17 9v11M17 14.5h3"/></symbol>
+  <symbol id="i-headunit" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="1.8"/><rect x="5.3" y="8.3" width="7.4" height="5.6" rx=".6"/><circle cx="17" cy="10" r="1.3"/><circle cx="17" cy="14" r="1.3"/></symbol>
+  <symbol id="i-alarm" viewBox="0 0 24 24"><path d="M12 3c3.6 0 6 2.9 6 6.4 0 4 1.5 6 2.3 6.8H3.7C4.5 15.4 6 13.4 6 9.4 6 5.9 8.4 3 12 3Z"/><path d="M9.3 19.2a2.7 2.7 0 0 0 5.4 0"/><path d="M11 3.3V2"/></symbol>
   <symbol id="i-lamp" viewBox="0 0 24 24"><path d="M4 8.6c0-.9.6-1.6 1.5-1.8 3.2-.7 6.6-.6 9.6.5 2.2.8 3.9 2 4.9 3.5.4.6.4 1.3 0 1.9-1 1.5-2.7 2.7-4.9 3.5-3 1.1-6.4 1.2-9.6.5-.9-.2-1.5-.9-1.5-1.8V8.6Z"/><circle cx="12" cy="12" r="2.3"/><path d="M8.5 9.5 6.8 8.2M8.5 14.5l-1.7 1.3"/></symbol>
   <symbol id="i-carshine" viewBox="0 0 24 24"><path d="M3.5 16.5v-3l1.9-4.3c.3-.8 1-1.2 1.8-1.2h6.6c.8 0 1.5.4 1.8 1.2l1.9 4.3v3M3.5 16.5h15M3.5 16.5V19M18.5 16.5V19"/><circle cx="7.2" cy="14" r=".7"/><circle cx="14.8" cy="14" r=".7"/><path d="m19 3 .7 1.8 1.8.7-1.8.7L19 8l-.7-1.8-1.8-.7 1.8-.7z"/></symbol>
   <symbol id="i-peel" viewBox="0 0 24 24"><path d="M5 4.5h9.5L19 9v10.5H5z"/><path d="M14.5 4.5V9H19"/><path d="M8 13h8M8 16h5"/></symbol>
@@ -167,7 +171,7 @@
   <div class="container">
     <div class="shead">
       <h2 class="shead__title" id="services-title">Услуги</h2>
-      <p class="shead__text">Работаем со&nbsp;стёклами, фарами и&nbsp;кузовом: заменим и&nbsp;отремонтируем стекло, затонируем, отполируем. Можем приехать к&nbsp;вам.</p>
+      <p class="shead__text">Стёкла, тонировка, автозвук, сигнализация, полировка&nbsp;— всё, что нужно машине. Можем приехать к&nbsp;вам.</p>
     </div>
 
     <div class="cards" id="serviceCards">
@@ -216,11 +220,71 @@
         </div>
       </article>
 
+      <article class="card" data-service="Замена акустики">
+        <div class="card__frame">
+          <div class="card__media"><svg class="card__ph" aria-hidden="true"><use href="#i-speaker"/></svg></div>
+          <div class="card__body">
+            <span class="card__num">04</span>
+            <h3 class="card__title">Замена акустики</h3>
+            <p class="card__text">Подберём и&nbsp;установим динамики под вашу машину и&nbsp;задачи&nbsp;— от&nbsp;штатной замены до&nbsp;серьёзного звука.</p>
+            <div class="card__foot">
+              <span class="card__price">по запросу</span>
+              <button class="card__btn js-book" type="button" data-service="Замена акустики">Записаться <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="card" data-service="Шумоизоляция">
+        <div class="card__frame">
+          <div class="card__media"><svg class="card__ph" aria-hidden="true"><use href="#i-soundproof"/></svg></div>
+          <div class="card__body">
+            <span class="card__num">05</span>
+            <h3 class="card__title">Шумоизоляция</h3>
+            <p class="card__text">Уменьшим шум дороги и&nbsp;двигателя в&nbsp;салоне: двери, пол, арки&nbsp;— по&nbsp;вашему запросу.</p>
+            <div class="card__foot">
+              <span class="card__price">по запросу</span>
+              <button class="card__btn js-book" type="button" data-service="Шумоизоляция">Записаться <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="card" data-service="Установка магнитол и планшетов">
+        <div class="card__frame">
+          <div class="card__media"><svg class="card__ph" aria-hidden="true"><use href="#i-headunit"/></svg></div>
+          <div class="card__body">
+            <span class="card__num">06</span>
+            <h3 class="card__title">Установка магнитол и&nbsp;планшетов</h3>
+            <p class="card__text">Поставим магнитолу или планшет вместо штатной панели, подключим камеру и&nbsp;навигацию.</p>
+            <div class="card__foot">
+              <span class="card__price">по запросу</span>
+              <button class="card__btn js-book" type="button" data-service="Установка магнитол и планшетов">Записаться <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="card" data-service="Установка сигнализации">
+        <div class="card__frame">
+          <div class="card__media"><svg class="card__ph" aria-hidden="true"><use href="#i-alarm"/></svg></div>
+          <div class="card__body">
+            <span class="card__num">07</span>
+            <h3 class="card__title">Установка сигнализации</h3>
+            <p class="card__text">Установим и&nbsp;настроим автосигнализацию, подключим к&nbsp;штатной электрике.</p>
+            <div class="card__foot">
+              <span class="card__price">по запросу</span>
+              <button class="card__btn js-book" type="button" data-service="Установка сигнализации">Записаться <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+            </div>
+          </div>
+        </div>
+      </article>
+
       <article class="card" data-service="Полировка фар">
         <div class="card__frame">
           <div class="card__media"><svg class="card__ph" aria-hidden="true"><use href="#i-lamp"/></svg></div>
           <div class="card__body">
-            <span class="card__num">04</span>
+            <span class="card__num">08</span>
             <h3 class="card__title">Полировка фар</h3>
             <p class="card__text">Вернём прозрачность потускневшим фарам.</p>
             <div class="card__foot">
@@ -235,7 +299,7 @@
         <div class="card__frame">
           <div class="card__media"><svg class="card__ph" aria-hidden="true"><use href="#i-carshine"/></svg></div>
           <div class="card__body">
-            <span class="card__num">05</span>
+            <span class="card__num">09</span>
             <h3 class="card__title">Полировка кузова</h3>
             <p class="card__text">Полируем кузов: убираем мелкие царапины и&nbsp;возвращаем краске блеск.</p>
             <div class="card__foot">
@@ -250,7 +314,7 @@
         <div class="card__frame">
           <div class="card__media"><svg class="card__ph" aria-hidden="true"><use href="#i-peel"/></svg></div>
           <div class="card__body">
-            <span class="card__num">06</span>
+            <span class="card__num">10</span>
             <h3 class="card__title">Расклейка тонировки</h3>
             <p class="card__text">Снимем старую тонировку со&nbsp;стёкол.</p>
             <div class="card__foot">
@@ -282,6 +346,10 @@
         <li class="price-row"><span class="price-row__name">Расклейка тонировки</span><span class="price-row__val">от&nbsp;2&nbsp;000&nbsp;₽</span></li>
         <li class="price-row"><span class="price-row__name">Полировка фар</span><span class="price-row__val">от&nbsp;3&nbsp;000&nbsp;₽</span></li>
         <li class="price-row"><span class="price-row__name">Полировка кузова</span><span class="price-row__val">от&nbsp;5&nbsp;000&nbsp;₽</span></li>
+        <li class="price-row"><span class="price-row__name">Замена акустики</span><span class="price-row__val">по&nbsp;запросу</span></li>
+        <li class="price-row"><span class="price-row__name">Шумоизоляция</span><span class="price-row__val">по&nbsp;запросу</span></li>
+        <li class="price-row"><span class="price-row__name">Установка магнитол и&nbsp;планшетов</span><span class="price-row__val">по&nbsp;запросу</span></li>
+        <li class="price-row"><span class="price-row__name">Установка сигнализации</span><span class="price-row__val">по&nbsp;запросу</span></li>
       </ul>
       <p class="price-note">Если нужно новое лобовое стекло с&nbsp;установкой, цена зависит от&nbsp;модели: от&nbsp;4&nbsp;100&nbsp;₽ на&nbsp;бюджетных моделях (например, ВАЗ&nbsp;2104) до&nbsp;10&nbsp;500&nbsp;₽ на&nbsp;Toyota Land Cruiser.</p>
     </div>
