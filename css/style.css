@@ -674,10 +674,10 @@ body::after{
 .layers__steps li.is-on button::after{ background:var(--btn-grad); transform:scaleY(1.4); }
 
 .layers__scene{ position:relative; height:min(68svh, 580px); perspective:1700px; perspective-origin:50% 38%; }
-.plates{ position:absolute; left:50%; top:65%; width:0; height:0; transform-style:preserve-3d; transform:rotateX(58deg) rotateZ(-32deg); }
+.plates{ --rx:58deg; --ar:.62; position:absolute; left:50%; top:65%; width:0; height:0; transform-style:preserve-3d; transform:rotateX(var(--rx)) rotateZ(-32deg); }
 .plate{
   --pw:clamp(260px, 31vw, 470px);
-  position:absolute; left:calc(var(--pw) * -.5); top:calc(var(--pw) * -.31); width:var(--pw); height:calc(var(--pw) * .62);
+  position:absolute; left:calc(var(--pw) * -.5); top:calc(var(--pw) * var(--ar) * -.5); width:var(--pw); height:calc(var(--pw) * var(--ar));
   border-radius:14px; border:1px solid var(--plate-line); color:var(--plate-ink); overflow:hidden; will-change:transform;
   box-shadow:0 30px 60px -20px var(--plate-shadow), inset 0 0 0 1px rgba(255,255,255,.04);
   transition:opacity .45s var(--ease-out), filter .45s var(--ease-out), border-color .45s, box-shadow .45s;
@@ -687,26 +687,29 @@ body::after{
   background:linear-gradient(115deg, transparent calc(var(--sheen, 0) * 150% - 40%), rgba(255,255,255,.3) calc(var(--sheen, 0) * 150% - 20%), transparent calc(var(--sheen, 0) * 150%));
 }
 .plate svg{ position:absolute; inset:0; width:100%; height:100%; }
-.plate__tag{ position:absolute; left:16px; bottom:12px; z-index:2; font:700 11px/1 var(--ff-body); letter-spacing:.14em; text-transform:uppercase; color:var(--plate-ink); }
-.plate.is-dim{ opacity:.4; filter:saturate(.55); }
+.plate__tag{ position:absolute; left:12px; bottom:10px; z-index:2; padding:6px 9px; border-radius:6px; font:700 11px/1 var(--ff-body); letter-spacing:.14em; text-transform:uppercase; color:#eaf1ff; background:rgba(6,12,28,.72); }
+.plate.is-dim{ opacity:.78; }
 .plate.is-on{ border-color:var(--ink); box-shadow:0 0 0 1px var(--ink), 0 0 56px -4px rgba(79,132,236,.7), 0 30px 60px -20px var(--plate-shadow); }
-.plate--film{ background:linear-gradient(135deg, rgba(6,12,28,.92), rgba(18,36,80,.8)); }
-.plate--glass{ background:linear-gradient(135deg, rgba(150,190,255,.3), rgba(60,110,220,.14)); }
+.plate--film{ background:linear-gradient(135deg, rgba(10,18,40,.55), rgba(26,50,110,.4)) , #0b1428; }
+.plate--glass{ background:linear-gradient(135deg, rgba(170,205,255,.34), rgba(70,120,230,.2)), #16294d; }
 .plate--foam{ background:radial-gradient(circle at 50% 50%, rgba(255,255,255,.16) 0 2.5px, transparent 3.5px) 0 0/22px 22px, radial-gradient(circle at 0 0, rgba(255,255,255,.1) 0 2.5px, transparent 3.5px) 11px 11px/22px 22px, linear-gradient(135deg, #1a1511, #2b221b); }
-.plate--audio{ background:linear-gradient(135deg, rgba(40,72,150,.4), rgba(10,18,40,.78)); }
-.plate--alarm{ background:linear-gradient(135deg, rgba(30,90,210,.34), rgba(8,14,32,.78)); }
+.plate--audio{ background:linear-gradient(135deg, rgba(50,90,180,.42), rgba(10,18,40,.3)), #0f1d3c; }
+.plate--alarm{ background:linear-gradient(135deg, rgba(40,110,230,.4), rgba(8,14,32,.3)), #0d1a38; }
 .plate--film, .plate--foam, .plate--audio, .plate--alarm{ --plate-ink:#d6e4ff; }
-:root[data-theme="day"] .plate--glass{ background:linear-gradient(135deg, rgba(255,255,255,.7), rgba(120,170,245,.32)); }
+:root[data-theme="day"] .plate--glass{ background:linear-gradient(135deg, rgba(255,255,255,.75), rgba(120,170,245,.4)), #dbe7fa; }
 
 @media (max-width: 900px){
   .layers__inner{ grid-template-columns:1fr; gap:4px; align-content:center; }
-  .layers__scene{ order:-1; height:40svh; }
-  .plate{ --pw:min(64vw, 330px); }
+  .layers__stage{ padding-bottom:76px; }              /* место под нижнюю панель телефона */
+  .layers__scene{ order:-1; height:46svh; }
+  .plates{ top:90%; --rx:64deg; --ar:.5; }
+  .plate{ --pw:min(60vw, 300px); }
   .layers__copy{ max-width:none; gap:10px; }
-  .layers__title{ font-size:22px; }
+  .layers__title{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }   /* заголовок остаётся для скринридеров, места на телефоне нет */
   .layers__copy > .eyebrow{ display:none; }
   .layers__panel{ min-height:0; padding:16px 18px; gap:8px; }
-  .layers__text{ font-size:15px; }
+  .layers__text{ font-size:14px; line-height:1.45; }
+  .layers__name{ font-size:22px; }
   .js .layers__track{ height:320svh; }
   .js .hero-pin__track{ height:90svh; }
 }

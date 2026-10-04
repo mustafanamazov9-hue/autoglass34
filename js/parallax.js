@@ -98,7 +98,7 @@
     section.style.setProperty('--lp', p.toFixed(4));
     var e = smooth(0, START + .08, p);                   // 0 — слои в стопке, 1 — разъехались
     var idx = p < START ? -1 : Math.min(N - 1, Math.floor((p - START) / (1 - START) * N));
-    var gap = Math.min(104, (sceneEl ? sceneEl.offsetHeight : 520) * .19);   // шаг между слоями зависит от высоты сцены (на телефоне она ниже)
+    var gap = Math.min(104, (sceneEl ? sceneEl.offsetHeight : 520) * (window.innerWidth <= 900 ? .155 : .19));   // шаг между слоями зависит от высоты сцены (на телефоне она ниже)
     plates.forEach(function (pl, k) {
       var depth = N - 1 - k;                             // 0 — нижний слой, N-1 — верхний
       var z = depth * (8 + gap * e) + (k === idx ? 34 * e : 0);
