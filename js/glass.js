@@ -23,6 +23,9 @@
   var root = document.documentElement;
 
   var cw = 0, ch = 0, W = 0, H = 0, dpr = 1;
+  var X = 0;                                      // запас сцены по высоте (px): при прокрутке сцена уезжает вверх медленнее страницы
+  var spT = 0, sp = 0, spPrev = 0, sv = 0;        // прокрутка героя: цель, сглаженное значение 0..1, скорость
+  var sceneOff = 0, clar = 0;                     // сдвиг сцены (px) и «чистота» стекла от прокрутки 0..1
   var A = document.createElement('canvas');      // чёткая сцена
   var B = document.createElement('canvas');      // размытая сцена
   var T = document.createElement('canvas');      // рабочий слой для склейки
@@ -52,10 +55,10 @@
   function bokehSpec() {
     seed = 20260926;
     var list = [], i;
-    for (i = 0; i < 54; i++) {
+    for (i = 0; i < 66; i++) {
       var c = rnd();
       list.push({
-        x: rnd(), y: 0.38 + Math.pow(rnd(), 0.8) * 0.6,
+        x: rnd(), y: 0.38 + Math.pow(rnd(), 0.8) * 0.8,       // с запасом ниже кадра: при прокрутке огни «подъезжают» снизу
         r: 0.012 + rnd() * rnd() * 0.05,
         a: 0.10 + rnd() * 0.30,
         c: c < 0.62 ? 0 : c < 0.9 ? 1 : 2           // 0 — синий, 1 — белый, 2 — тёплый
@@ -74,7 +77,7 @@
   }
 
   function drawScene(c, day) {
-    var w = W, h = H, i, g;
+    var w = W, h = H, full = H + X, i, g;           // раскладка — по высоте кадра h, фон — на всю высоту сцены full
 
     /* небо */
     g = c.createLinearGradient(0, 0, 0, h);
@@ -83,13 +86,13 @@
     } else {
       g.addColorStop(0, '#02040a'); g.addColorStop(.46, '#071433'); g.addColorStop(.76, '#0c2354'); g.addColorStop(1, '#04070d');
     }
-    c.fillStyle = g; c.fillRect(0, 0, w, h);
+    c.fillStyle = g; c.fillRect(0, 0, w, full);
 
     if (day) {
       /* солнечный блик и облака */
       g = c.createRadialGradient(w * .82, h * .1, 0, w * .82, h * .1, w * .42);
       g.addColorStop(0, 'rgba(255,255,255,.98)'); g.addColorStop(.35, 'rgba(255,255,255,.5)'); g.addColorStop(1, 'rgba(255,255,255,0)');
-      c.fillStyle = g; c.fillRect(0, 0, w, h);
+      c.fillStyle = g; c.fillRect(0, 0, w, full);
       seed = 777;
       for (i = 0; i < 7; i++) {
         var cx = rnd() * w, cy = h * (.12 + rnd() * .5), rr = w * (.08 + rnd() * .12);
@@ -184,8 +187,9 @@
   /* размытая версия: последовательное уменьшение и возврат даёт мягкий блюр без ctx.filter (он есть не везде) */
   function drawFog() {
     var s1 = document.createElement('canvas'), s2 = document.createElement('canvas');
-    var w1 = Math.max(8, Math.round(W / 4)), h1 = Math.max(8, Math.round(H / 4));
-    var w2 = Math.max(6, Math.round(W / 13)), h2 = Math.max(6, Math.round(H / 13));
+    var FH = H + X;
+    var w1 = Math.max(8, Math.round(W / 4)), h1 = Math.max(8, Math.round(FH / 4));
+    var w2 = Math.max(6, Math.round(W / 13)), h2 = Math.max(6, Math.round(FH / 13));
     s1.width = w1; s1.height = h1; s2.width = w2; s2.height = h2;
     var c1 = s1.getContext('2d'), c2 = s2.getContext('2d');
     c1.imageSmoothingQuality = c2.imageSmoothingQuality = bctx.imageSmoothingQuality = 'high';
@@ -193,21 +197,21 @@
     c2.drawImage(s1, 0, 0, w2, h2);
     c1.clearRect(0, 0, w1, h1);
     c1.drawImage(s2, 0, 0, w1, h1);
-    bctx.clearRect(0, 0, W, H);
-    bctx.drawImage(s1, 0, 0, W, H);
+    bctx.clearRect(0, 0, W, FH);
+    bctx.drawImage(s1, 0, 0, W, FH);
     /* вуаль запотевания */
     bctx.fillStyle = isDay ? 'rgba(255,255,255,.34)' : 'rgba(120,150,205,.17)';
-    bctx.fillRect(0, 0, W, H);
-    var g = bctx.createLinearGradient(0, 0, 0, H);
+    bctx.fillRect(0, 0, W, FH);
+    var g = bctx.createLinearGradient(0, 0, 0, FH);
     g.addColorStop(0, isDay ? 'rgba(255,255,255,.06)' : 'rgba(150,180,235,.02)');
     g.addColorStop(1, isDay ? 'rgba(255,255,255,.22)' : 'rgba(150,180,235,.12)');
-    bctx.fillStyle = g; bctx.fillRect(0, 0, W, H);
+    bctx.fillStyle = g; bctx.fillRect(0, 0, W, FH);
   }
 
   function buildScenes() {
     isDay = root.getAttribute('data-theme') === 'day';
     actx.setTransform(1, 0, 0, 1, 0, 0);
-    actx.clearRect(0, 0, W, H);
+    actx.clearRect(0, 0, W, H + X);
     var c = actx;
     drawScene(c, isDay);
     drawFog();
@@ -259,12 +263,14 @@
       d = drops[i];
       if (d.st === 0) {
         if (d.r > 4.6 && Math.random() < dt * .06 * (d.r / 6)) startSlide(d, false);
+        /* прокрутка «стряхивает» капли: чем быстрее листаешь, тем больше их скатывается */
+        else if (sv > .04 && d.r > 2.4 && Math.random() < dt * Math.min(sv, 1.2) * 3) startSlide(d, true);
         continue;
       }
       var acc = 420 * (.55 + d.r / 9);
       var vmax = 300 * (.5 + d.r / 10);
       d.v = Math.min(vmax, d.v + acc * dt);
-      var step = d.v * dt;
+      var step = d.v * dt * (1 + Math.min(2, sv * 3));
       d.y += step; d.left -= step;
       d.x += Math.sin(clock * 6 + d.ph) * dt * 5 * (d.r / 6);
       /* дорожка: узкая полоска чистого стекла */
@@ -297,6 +303,8 @@
     var i, d, r, rx, ry;
     var tint = isDay ? 'rgba(255,255,255,.10)' : 'rgba(150,190,255,.07)';
     var rim = isDay ? 'rgba(10,30,70,.42)' : 'rgba(0,0,0,.6)';
+    var dropA = 1 - .6 * clar;                        // когда стекло очистилось, капель остаётся совсем немного
+    c.globalAlpha = dropA;
     for (i = 0; i < drops.length; i++) {
       d = drops[i]; r = d.r;
       if (d.y < -r || d.y > ch + r) continue;
@@ -305,9 +313,9 @@
         /* мелкая капля: светлая точка с тёмным краем */
         c.fillStyle = isDay ? 'rgba(255,255,255,.55)' : 'rgba(190,215,255,.26)';
         c.beginPath(); c.ellipse(d.x, d.y, rx, ry, 0, 0, 6.2832); c.fill();
-        c.fillStyle = rim; c.globalAlpha = .55;
+        c.fillStyle = rim; c.globalAlpha = .55 * dropA;
         c.beginPath(); c.ellipse(d.x + rx * .1, d.y + ry * .35, rx * .8, ry * .55, 0, 0, 6.2832); c.fill();
-        c.globalAlpha = 1;
+        c.globalAlpha = dropA;
         c.fillStyle = 'rgba(255,255,255,.9)';
         c.beginPath(); c.arc(d.x - rx * .32, d.y - ry * .4, Math.max(.5, r * .22), 0, 6.2832); c.fill();
         continue;
@@ -317,7 +325,7 @@
       c.beginPath(); c.ellipse(d.x, d.y, rx, ry, 0, 0, 6.2832); c.clip();
       c.translate(d.x, d.y); c.scale(1, -1);
       var sw = rx * 2 * dpr * 2.6, sh = ry * 2 * dpr * 2.6;
-      c.drawImage(A, d.x * dpr - sw / 2, d.y * dpr - sh / 2, sw, sh, -rx, -ry, rx * 2, ry * 2);
+      c.drawImage(A, d.x * dpr - sw / 2, d.y * dpr - sh / 2 + sceneOff, sw, sh, -rx, -ry, rx * 2, ry * 2);
       c.scale(1, -1); c.translate(-d.x, -d.y);
       c.fillStyle = tint; c.fillRect(d.x - rx, d.y - ry, rx * 2, ry * 2);
       var g = c.createRadialGradient(d.x, d.y - ry * .2, ry * .3, d.x, d.y, ry * 1.05);
@@ -329,6 +337,7 @@
       c.fillStyle = 'rgba(255,255,255,.88)';
       c.beginPath(); c.ellipse(d.x - rx * .34, d.y - ry * .42, Math.max(.7, rx * .22), Math.max(.9, ry * .16), -.5, 0, 6.2832); c.fill();
     }
+    c.globalAlpha = 1;
   }
 
   /* ---------- Дворник ---------- */
@@ -364,7 +373,51 @@
     }
     if (wiper.t >= FWD + BACK) wiper.on = false;
   }
+  /* Дворник от прокрутки: угол зависит от того, насколько проскроллен первый экран; лезвие видно, пока листаешь */
+  var sw = { prev: A0, vis: 0 };
+  function scrollAngle() {
+    var s = (sp * 2.4) % 2;
+    return A0 + (A1 - A0) * ease(s > 1 ? 2 - s : s);
+  }
+  function updateScroll(dt) {
+    sp += (spT - sp) * (1 - Math.pow(.02, dt));
+    var v = Math.abs(sp - spPrev) / Math.max(dt, .001);
+    spPrev = sp;
+    sv += (v - sv) * Math.min(1, dt * 8);
+    sceneOff = Math.round(sp * X);
+    var cc = (sp - .06) / .76; cc = cc < 0 ? 0 : cc > 1 ? 1 : cc;
+    clar = cc * cc * (3 - 2 * cc);
+    var live = sp > .015 && sp < .94;
+    sw.vis += ((live && sv > .03 ? 1 : 0) - sw.vis) * Math.min(1, dt * 7);
+    var a = scrollAngle();
+    if (sw.vis > .04 && Math.abs(a - sw.prev) > .002) {
+      addEntry({ k: 'w', a0: sw.prev, a1: a, hold: .5, fade: 2.2 });
+      var p = pivot(), L = wipeLen(), i, d, ang;
+      for (i = 0; i < drops.length; i++) {            // капли под лезвием смахиваются
+        d = drops[i];
+        ang = Math.atan2(p.y - d.y, d.x - p.x);
+        if (ang >= Math.min(a, sw.prev) - .015 && ang <= Math.max(a, sw.prev) + .015 && Math.hypot(d.x - p.x, d.y - p.y) < L) respawn(d);
+      }
+    }
+    sw.prev = a;
+  }
+  function drawBlade(c, a, alpha) {
+    var p = pivot(), L = wipeLen();
+    var ex = p.x + Math.cos(a) * L, ey = p.y - Math.sin(a) * L;
+    c.save();
+    c.globalAlpha = Math.max(0, alpha);
+    c.lineCap = 'round';
+    c.strokeStyle = isDay ? '#1b2231' : '#03050a';
+    c.lineWidth = 6; c.beginPath(); c.moveTo(p.x, p.y); c.lineTo(ex, ey); c.stroke();
+    c.strokeStyle = isDay ? 'rgba(255,255,255,.5)' : 'rgba(140,175,235,.4)';
+    c.lineWidth = 1.2; c.beginPath(); c.moveTo(p.x, p.y); c.lineTo(ex, ey); c.stroke();
+    var bx = p.x + Math.cos(a) * L * .42, by = p.y - Math.sin(a) * L * .42;
+    c.strokeStyle = isDay ? '#0c1018' : '#000'; c.lineWidth = 4;
+    c.beginPath(); c.moveTo(bx, by); c.lineTo(ex, ey); c.stroke();
+    c.restore();
+  }
   function drawWiper(c) {
+    if (sw.vis > .03) drawBlade(c, sw.prev, sw.vis);
     if (!wiper.on) return;
     var a = wiperAngle(), p = pivot(), L = wipeLen();
     var ex = p.x + Math.cos(a) * L, ey = p.y - Math.sin(a) * L;
@@ -458,12 +511,17 @@
 
   function render() {
     ctx.setTransform(1, 0, 0, 1, 0, 0);
-    ctx.drawImage(B, 0, 0);
+    ctx.drawImage(B, 0, sceneOff, W, H, 0, 0, W, H);
+    if (clar > .004) {                                // прокрутка очищает стекло целиком
+      ctx.globalAlpha = clar;
+      ctx.drawImage(A, 0, sceneOff, W, H, 0, 0, W, H);
+      ctx.globalAlpha = 1;
+    }
     if (entries.length) {
       drawMask();
       tctx.globalCompositeOperation = 'source-over';
       tctx.clearRect(0, 0, W, H);
-      tctx.drawImage(A, 0, 0);
+      tctx.drawImage(A, 0, sceneOff, W, H, 0, 0, W, H);
       tctx.globalCompositeOperation = 'destination-in';
       tctx.drawImage(M, 0, 0, M.width, M.height, 0, 0, W, H);
       tctx.globalCompositeOperation = 'source-over';
@@ -479,7 +537,7 @@
     if (!running) return;
     var dt = last ? Math.min(.05, (now - last) / 1000) : .016;
     last = now; clock += dt;
-    updateCursor(dt); updateWiper(dt); updateDrops(dt);
+    updateScroll(dt); updateCursor(dt); updateWiper(dt); updateDrops(dt);
     pruneEntries();
     render();
     rafId = requestAnimationFrame(frame);
@@ -499,8 +557,10 @@
     cw = nw; ch = nh;
     dpr = Math.min(window.devicePixelRatio || 1, nw < 720 ? 1.25 : 1.5);
     W = Math.round(cw * dpr); H = Math.round(ch * dpr);
+    X = reduce ? 0 : Math.round(H * (W / H < .9 ? .08 : .2));   // на телефоне надпись выше и в две строки — сдвигаем меньше, чтобы не заехать под шапку
     canvas.width = A.width = B.width = T.width = W;
-    canvas.height = A.height = B.height = T.height = H;
+    canvas.height = T.height = H;
+    A.height = B.height = H + X;
     M.width = Math.max(8, Math.round(W / 2)); M.height = Math.max(8, Math.round(H / 2));
     buildScenes();
     if (oldW && drops.length) {
@@ -562,7 +622,7 @@
     play();
     setTimeout(function () { hero.classList.add('is-live'); startWipe(); hero.classList.remove('is-wiped'); }, 450);
     if (!fine) {
-      setInterval(function () { if (visible && !document.hidden && !wiper.on) startWipe(); }, 7000);
+      setInterval(function () { if (visible && !document.hidden && !wiper.on && sp < .02) startWipe(); }, 7000);
     }
   }
 
@@ -579,5 +639,8 @@
     go();
   }
 
-  window.AGGlass = { wipe: startWipe };
+  /* прогресс прокрутки первого экрана 0..1 (его присылает js/parallax.js) */
+  function setProgress(p) { spT = p < 0 ? 0 : p > 1 ? 1 : p; }
+
+  window.AGGlass = { wipe: startWipe, setProgress: setProgress };
 })();

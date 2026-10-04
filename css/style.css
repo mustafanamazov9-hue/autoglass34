@@ -87,7 +87,7 @@ img,video,svg,canvas,iframe{ display:block; max-width:100%; }
 a{ color:inherit; text-decoration:none; }
 button{ font:inherit; color:inherit; background:none; border:0; padding:0; cursor:pointer; }
 h1,h2,h3,p,ul,dl,dd,figure,blockquote{ margin:0; padding:0; }
-ul{ list-style:none; }
+ul,ol{ list-style:none; }
 ::selection{ background:#1d4ed8; color:#fff; }
 :focus-visible{ outline:2px solid var(--focus); outline-offset:3px; }
 [hidden]{ display:none !important; }
@@ -579,4 +579,150 @@ body::after{
   html{ scroll-behavior:auto; }
   *,*::before,*::after{ animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; }
   .js [data-reveal]{ opacity:1; filter:none; transform:none; }
+}
+
+/* ==========================================================================
+   Прокрутка №1: «стекло чистеет» — первый экран закрепляется, пока листаешь
+   ========================================================================== */
+.js .hero-pin .hero{ position:sticky; top:0; }
+.js .hero-pin__track{ height:110svh; }
+.hero__text{ transform:translate3d(0, calc(var(--p, 0) * -90px), 0); opacity:max(0, calc(1 - var(--p, 0) * 2.3)); will-change:transform, opacity; }
+.hero.is-faded .hero__text{ visibility:hidden; pointer-events:none; }
+.hero.has-scrolled .hero__hint{ opacity:0; }
+.hero__scroll{
+  position:absolute; left:50%; bottom:22px; z-index:3; transform:translateX(-50%); pointer-events:none;
+  display:flex; flex-direction:column; align-items:center; gap:10px;
+  font:600 10px/1 var(--ff-body); letter-spacing:.15em; text-transform:uppercase; color:var(--text-dim);
+  opacity:0; transition:opacity var(--t3);
+}
+.hero__scroll span{ width:1px; height:36px; background:linear-gradient(var(--ink), transparent); transform-origin:top; animation:scrollLine 1.9s var(--ease-out) infinite; }
+@keyframes scrollLine{ 0%{ transform:scaleY(0); opacity:1; } 60%{ transform:scaleY(1); opacity:1; } 100%{ transform:scaleY(1); opacity:0; } }
+.hero.is-live .hero__scroll{ opacity:1; }
+.hero.has-scrolled .hero__scroll{ opacity:0; }
+
+/* услуги как подсказки на очищенном стекле */
+.hud{
+  position:absolute; z-index:3; left:0; right:0; margin-inline:auto; bottom:clamp(36px, 7vh, 84px);
+  display:flex; flex-direction:column; align-items:flex-start; gap:18px; pointer-events:none;
+  opacity:0; visibility:hidden; transition:opacity var(--t2), visibility 0s linear var(--t2);
+}
+.hero.is-hud .hud{ opacity:1; visibility:visible; transition:opacity var(--t2); }
+.hud__title{ color:var(--text-dim); }
+.hud__list{ display:flex; flex-wrap:wrap; gap:10px; max-width:min(72vw, 900px); }
+.hud__list li{ opacity:0; transform:translateY(16px) scale(.97); transition:opacity .45s var(--ease-out), transform .6s var(--ease-out); }
+.hero.is-hud .hud__list li{ opacity:1; transform:none; transition-delay:calc(var(--i) * 60ms + 120ms); }
+.hud__chip{
+  pointer-events:auto; display:inline-flex; align-items:center; gap:10px; min-height:46px; padding:0 18px 0 14px; border-radius:999px;
+  background:var(--glass); color:var(--text); border:1px solid var(--glass-line);
+  -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px); font:600 14px/1 var(--ff-body);
+  transition:border-color var(--t1), background-color var(--t1), transform var(--t1) var(--ease-out);
+}
+.hud__chip i{ flex:none; width:8px; height:8px; border-radius:50%; background:var(--ink); box-shadow:0 0 0 4px rgba(79,132,236,.2), 0 0 14px var(--ink); }
+.hud__chip b{ font-weight:600; font-size:12px; color:var(--text-dim); }
+.hud__chip:hover{ border-color:var(--ink); transform:translateY(-2px); }
+.hud__all{ pointer-events:auto; }
+
+/* ==========================================================================
+   Прокрутка №2: «слоёное стекло» — слои разъезжаются, у каждого своя услуга
+   ========================================================================== */
+.layers{
+  --plate-line: rgba(160,190,235,.28); --plate-ink:#cfe0ff; --plate-shadow: rgba(0,0,0,.55);
+  position:relative; background:var(--bg-2);
+}
+:root[data-theme="day"] .layers{ --plate-line: rgba(12,28,60,.24); --plate-ink:#12378a; --plate-shadow: rgba(20,40,80,.28); }
+.layers__track{ display:none; position:relative; }
+.js .layers__track{ display:block; height:340svh; }
+.layers__list{ display:grid; gap:var(--gap); grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); padding:var(--section) var(--gutter); max-width:var(--container); margin-inline:auto; counter-reset:ly; }
+.js .layers__list{ display:none; }
+.layers__list li{ padding:24px; border:1px solid var(--line-2); background:var(--surface); }
+.layers__list h3{ font:800 20px/1.15 var(--ff-head); margin-bottom:8px; }
+.layers__list p{ color:var(--text-dim); font-size:15px; }
+.layers__stage{ position:sticky; top:0; height:100svh; min-height:560px; overflow:hidden; display:flex; align-items:center; padding-top:var(--header-h); }
+.layers__bg{ position:absolute; inset:0; pointer-events:none; overflow:hidden; }
+.layers__glow{
+  position:absolute; left:55%; top:50%; width:90vmin; height:90vmin; margin:-45vmin 0 0 -45vmin; border-radius:50%;
+  background:radial-gradient(closest-side, rgba(59,111,240,.34), transparent);
+  transform:translate3d(0, calc(var(--lp, 0) * -16vh), 0);
+}
+:root[data-theme="day"] .layers__glow{ background:radial-gradient(closest-side, rgba(59,111,240,.2), transparent); }
+.layers__word{
+  position:absolute; left:0; bottom:-2vw; white-space:nowrap; user-select:none;
+  font:900 clamp(140px, 27vw, 440px)/.8 var(--ff-head); letter-spacing:.02em; color:var(--text); opacity:.045;
+  transform:translate3d(calc(var(--lp, 0) * -30%), 0, 0);
+}
+.layers__inner{ position:relative; display:grid; grid-template-columns:minmax(0, .9fr) minmax(0, 1.1fr); gap:40px; align-items:center; width:100%; }
+.layers__copy{ display:flex; flex-direction:column; gap:20px; max-width:540px; }
+.layers__title{ font:800 clamp(28px, 3.3vw, 50px)/1.04 var(--ff-head); text-transform:uppercase; }
+.layers__panel{
+  display:flex; flex-direction:column; align-items:flex-start; gap:10px; min-height:236px; padding:22px 24px;
+  background:var(--glass); border:1px solid var(--glass-line); -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px);
+  clip-path:polygon(0 0, calc(100% - var(--cut)) 0, 100% var(--cut), 100% 100%, 0 100%);
+}
+.layers__panel.is-in > *{ animation:lyIn .6s var(--ease-out) both; }
+.layers__panel.is-in > *:nth-child(2){ animation-delay:.05s; } .layers__panel.is-in > *:nth-child(3){ animation-delay:.1s; }
+.layers__panel.is-in > *:nth-child(4){ animation-delay:.15s; } .layers__panel.is-in > *:nth-child(5){ animation-delay:.2s; }
+@keyframes lyIn{ from{ opacity:0; filter:blur(10px); transform:translateY(12px); } to{ opacity:1; filter:none; transform:none; } }
+.layers__num{ font:600 11px/1 var(--ff-body); letter-spacing:.15em; color:var(--text-faint); }
+.layers__name{ font:800 clamp(24px, 2.4vw, 34px)/1.1 var(--ff-head); }
+.layers__text{ color:var(--text-dim); font-size:16px; max-width:42ch; }
+.layers__price{ font:800 20px/1.2 var(--ff-head); background:var(--metal); -webkit-background-clip:text; background-clip:text; color:transparent; }
+.layers__price:empty{ display:none; }
+.layers__btn{ margin-top:6px; }
+.layers__steps{ display:flex; gap:8px; }
+.layers__steps button{ display:block; width:44px; height:18px; position:relative; }
+.layers__steps button::after{ content:""; position:absolute; left:0; right:0; top:6px; height:6px; border-radius:3px; background:var(--line-2); transition:background var(--t2), transform var(--t2) var(--ease-out); }
+.layers__steps li.is-on button::after{ background:var(--btn-grad); transform:scaleY(1.4); }
+
+.layers__scene{ position:relative; height:min(68svh, 580px); perspective:1700px; perspective-origin:50% 38%; }
+.plates{ position:absolute; left:50%; top:65%; width:0; height:0; transform-style:preserve-3d; transform:rotateX(58deg) rotateZ(-32deg); }
+.plate{
+  --pw:clamp(260px, 31vw, 470px);
+  position:absolute; left:calc(var(--pw) * -.5); top:calc(var(--pw) * -.31); width:var(--pw); height:calc(var(--pw) * .62);
+  border-radius:14px; border:1px solid var(--plate-line); color:var(--plate-ink); overflow:hidden; will-change:transform;
+  box-shadow:0 30px 60px -20px var(--plate-shadow), inset 0 0 0 1px rgba(255,255,255,.04);
+  transition:opacity .45s var(--ease-out), filter .45s var(--ease-out), border-color .45s, box-shadow .45s;
+}
+.plate::before{
+  content:""; position:absolute; inset:0; pointer-events:none; z-index:1;
+  background:linear-gradient(115deg, transparent calc(var(--sheen, 0) * 150% - 40%), rgba(255,255,255,.3) calc(var(--sheen, 0) * 150% - 20%), transparent calc(var(--sheen, 0) * 150%));
+}
+.plate svg{ position:absolute; inset:0; width:100%; height:100%; }
+.plate__tag{ position:absolute; left:16px; bottom:12px; z-index:2; font:700 11px/1 var(--ff-body); letter-spacing:.14em; text-transform:uppercase; color:var(--plate-ink); }
+.plate.is-dim{ opacity:.4; filter:saturate(.55); }
+.plate.is-on{ border-color:var(--ink); box-shadow:0 0 0 1px var(--ink), 0 0 56px -4px rgba(79,132,236,.7), 0 30px 60px -20px var(--plate-shadow); }
+.plate--film{ background:linear-gradient(135deg, rgba(6,12,28,.92), rgba(18,36,80,.8)); }
+.plate--glass{ background:linear-gradient(135deg, rgba(150,190,255,.3), rgba(60,110,220,.14)); }
+.plate--foam{ background:radial-gradient(circle at 50% 50%, rgba(255,255,255,.16) 0 2.5px, transparent 3.5px) 0 0/22px 22px, radial-gradient(circle at 0 0, rgba(255,255,255,.1) 0 2.5px, transparent 3.5px) 11px 11px/22px 22px, linear-gradient(135deg, #1a1511, #2b221b); }
+.plate--audio{ background:linear-gradient(135deg, rgba(40,72,150,.4), rgba(10,18,40,.78)); }
+.plate--alarm{ background:linear-gradient(135deg, rgba(30,90,210,.34), rgba(8,14,32,.78)); }
+.plate--film, .plate--foam, .plate--audio, .plate--alarm{ --plate-ink:#d6e4ff; }
+:root[data-theme="day"] .plate--glass{ background:linear-gradient(135deg, rgba(255,255,255,.7), rgba(120,170,245,.32)); }
+
+@media (max-width: 900px){
+  .layers__inner{ grid-template-columns:1fr; gap:4px; align-content:center; }
+  .layers__scene{ order:-1; height:40svh; }
+  .plate{ --pw:min(64vw, 330px); }
+  .layers__copy{ max-width:none; gap:10px; }
+  .layers__title{ font-size:22px; }
+  .layers__copy > .eyebrow{ display:none; }
+  .layers__panel{ min-height:0; padding:16px 18px; gap:8px; }
+  .layers__text{ font-size:15px; }
+  .js .layers__track{ height:320svh; }
+  .js .hero-pin__track{ height:90svh; }
+}
+@media (max-width: 720px){
+  .hero__scroll{ display:none; }
+  .hud{ gap:14px; }
+  .hud__list{ max-width:100%; gap:8px; }
+  .hud__chip{ min-height:40px; padding:0 14px 0 12px; font-size:13px; }
+  .hud__chip b{ display:none; }
+  .hud__all{ height:44px; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .js .hero-pin .hero{ position:relative; }
+  .js .hero-pin__track, .hero__scroll, .hud{ display:none; }
+  .hero__text{ transform:none; opacity:1; }
+  .js .layers__track{ display:none; }
+  .js .layers__list{ display:grid; }
 }
